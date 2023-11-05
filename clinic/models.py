@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 from django.conf import settings
 
 # Create your models here.
@@ -29,9 +30,6 @@ class Package(models.Model):
     def __str__(self) -> str:
         return self.title
     
-    class Meta:
-        # Change the sort order by its title
-        ordering = ['title', 'package_type', 'price']
 class Patient(models.Model):
     phone = models.CharField(max_length=255)
     birth_date = models.DateField(null=True, blank=True)
@@ -41,6 +39,15 @@ class Patient(models.Model):
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
+
+    @admin.display(ordering='user__first_name')
+    def first_name(self):
+        return self.user.first_name
+    
+    @admin.display(ordering='user__last_name')
+    def last_name(self):
+        return self.user.last_name
+
 
 
 class Dentist(models.Model):

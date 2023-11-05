@@ -5,9 +5,7 @@ from . import models
 
 @admin.register(models.Address)
 class AddressAdmin(admin.ModelAdmin):
-    autocomplete_fields = ['branch', 'patient', 'dentist']
-    list_display = ['branch', 'street', 'city']
-    ordering = ['branch']
+    list_display = ['street', 'city']
     list_per_page = 10
     list_select_related = ['branch']
 
@@ -39,6 +37,14 @@ class PatientAdmin(admin.ModelAdmin):
     list_per_page = 10
     list_select_related = ['branch', 'package', 'user']
     search_fields = ['first_name__istartswith', 'last_name__istartswith']
+
+    def branch_name(self, patient):
+        return patient.branch.name
+    
+    def package_type(self, patient):
+        if patient.package:
+            return patient.package.title
+        return None
 
 @admin.register(models.Package)
 class PackageAdmin(admin.ModelAdmin):
