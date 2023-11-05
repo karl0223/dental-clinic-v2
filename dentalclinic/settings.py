@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
+    'clinic',
+    'core'
 ]
 
 MIDDLEWARE = [
@@ -121,3 +124,24 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DATABASES = {
+
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'dentalv2',
+
+        'USER': 'postgres',
+
+        'PASSWORD': 'password',
+
+        'HOST': '127.0.0.1',
+
+        'PORT': '5432',
+
+    }
+}
+
+AUTH_USER_MODEL = 'core.User'
