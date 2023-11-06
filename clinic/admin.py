@@ -7,17 +7,19 @@ from . import models
 class AddressAdmin(admin.ModelAdmin):
     list_display = ['street', 'city']
     list_per_page = 10
-    list_select_related = ['branch']
+    search_fields = ['street__istartswith', 'city__istartswith']
 
     def branch(self, address):
         return address.branch.name
     
 @admin.register(models.Branch)
 class BranchAdmin(admin.ModelAdmin):
-    list_display = ['name']
-    ordering = ['name']
+    autocomplete_fields = ['address']
+    list_display = ['name', 'address']
+    ordering = ['name', 'address']
     list_per_page = 10
     search_fields = ['branch__istartswith']
+    list_select_related = ['address']
 
 @admin.register(models.Dentist)
 class DentistAdmin(admin.ModelAdmin):
@@ -32,19 +34,19 @@ class DentistAdmin(admin.ModelAdmin):
 class PatientAdmin(admin.ModelAdmin):
     readonly_fields = ['balance']
     autocomplete_fields = ['branch', 'package', 'user']
-    list_display = ['user_id', 'first_name', 'last_name', 'phone', 'branch_name', 'package_type', 'balance']
+    list_display = ['user_id', 'first_name', 'last_name', 'phone', 'balance']
     ordering = ['user__first_name', 'user__last_name']
     list_per_page = 10
-    list_select_related = ['branch', 'package', 'user']
+    list_select_related = ['package', 'user']
     search_fields = ['first_name__istartswith', 'last_name__istartswith']
 
-    def branch_name(self, patient):
-        return patient.branch.name
+    # def branch_name(self, patient):
+    #     return patient.branch.name
     
-    def package_type(self, patient):
-        if patient.package:
-            return patient.package.title
-        return None
+    # def package_type(self, patient):
+    #     if patient.package:
+    #         return patient.package.title
+    #     return None
 
 @admin.register(models.Package)
 class PackageAdmin(admin.ModelAdmin):
