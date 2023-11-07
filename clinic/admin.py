@@ -33,7 +33,7 @@ class DentistAdmin(admin.ModelAdmin):
 @admin.register(models.Patient)
 class PatientAdmin(admin.ModelAdmin):
     readonly_fields = ['balance']
-    autocomplete_fields = ['branch', 'package', 'user']
+    autocomplete_fields = ['branch', 'package', 'user', 'address']
     list_display = ['user_id', 'first_name', 'last_name', 'phone', 'balance']
     ordering = ['user__first_name', 'user__last_name']
     list_per_page = 10
