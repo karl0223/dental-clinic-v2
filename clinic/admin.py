@@ -23,7 +23,7 @@ class BranchAdmin(admin.ModelAdmin):
 
 @admin.register(models.Dentist)
 class DentistAdmin(admin.ModelAdmin):
-    autocomplete_fields = ['user']
+    autocomplete_fields = ['user', 'address']
     list_display = ['user_id', 'first_name', 'last_name', 'phone', 'role']
     ordering = ['user__first_name', 'user__last_name']
     list_per_page = 10
