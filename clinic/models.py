@@ -35,7 +35,14 @@ class Package(models.Model):
         return self.title
     
 class Patient(models.Model):
+    GENDER_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other'),
+    ]
+
     phone = models.CharField(max_length=255)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     birth_date = models.DateField(null=True, blank=True)
     registration_date = models.DateField(auto_now_add=True)
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE, related_name='patients')
@@ -95,3 +102,33 @@ class Appointment(models.Model):
         permissions = [
             ('cancel_appointment', 'Can cancel appointment')
         ]
+
+class DentalHistory(models.Model):
+    patient = models.OneToOneField(Patient, on_delete=models.CASCADE, related_name='patient_dental_record')
+    last_dental_visit = models.DateField()
+    reason_for_visit = models.TextField()
+    previous_treatment = models.TextField()
+
+class TreatmentPlan(models.Model):
+    patient = models.OneToOneField(Patient, on_delete=models.CASCADE)
+    proposed_treatment = models.TextField()
+    priority_of_treatment = models.TextField()
+    estimated_cost = models.DecimalField(max_digits=10, decimal_places=2)
+    alternative_treatment_options = models.TextField()
+
+class InformedConset(models.Model):
+    patient = models.OneToOneField(Patient, on_delete=models.CASCADE)
+    consent_for_treatment = models.BooleanField()
+    consent_for_x_rays = models.BooleanField()
+
+class FollowUp(models.Model):
+    patient = models.OneToOneField(Patient, on_delete=models.CASCADE)
+    schedules_appointments = models.TextField()
+    post_treatment_instructions = models.TextField()
+
+
+class DenstistNotes(models.Model):
+    patient = models.OneToOneField(Patient, on_delete=models.CASCADE)
+    diagnosis = models.TextField()
+    treatment_provided = models.TextField()
+    recommendations = models.TextField()
