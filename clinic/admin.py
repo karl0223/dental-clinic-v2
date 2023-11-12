@@ -54,3 +54,10 @@ class PackageAdmin(admin.ModelAdmin):
     list_display = ['title', 'package_type', 'price']
     list_per_page = 10 # simple pagination
     search_fields = ['title__istartswith']
+
+
+@admin.register(models.Appointment)
+class AppointmentAdmin(admin.ModelAdmin):
+    list_display = ['patient', 'dentist', 'start_time', 'end_time']
+    list_select_related = ['patient', 'dentist']
+    
