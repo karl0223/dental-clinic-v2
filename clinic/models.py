@@ -58,7 +58,9 @@ class Patient(models.Model):
     @admin.display(ordering='user__last_name')
     def last_name(self):
         return self.user.last_name
-
+    
+    def __str__(self) -> str:
+        return f'{self.user.first_name} {self.user.last_name}'
 
 
 class Dentist(models.Model):

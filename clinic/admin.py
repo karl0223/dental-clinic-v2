@@ -58,6 +58,8 @@ class PackageAdmin(admin.ModelAdmin):
 
 @admin.register(models.Appointment)
 class AppointmentAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['patient', 'dentist']
     list_display = ['patient', 'dentist', 'start_time', 'end_time']
     list_select_related = ['patient', 'dentist']
-    
+    list_per_page = 10
+
