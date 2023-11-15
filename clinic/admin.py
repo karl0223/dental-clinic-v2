@@ -63,3 +63,8 @@ class AppointmentAdmin(admin.ModelAdmin):
     list_select_related = ['patient', 'dentist']
     list_per_page = 10
 
+@admin.register(models.DentalHistory)
+class DentalHistoryAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['patient']
+    list_display = ['patient', 'last_dental_visit', 'reason_for_visit', 'previous_treatment']
+    list_select_related = ['patient']
