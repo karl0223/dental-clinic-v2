@@ -74,3 +74,8 @@ class TreatmentPlanAdmin(admin.ModelAdmin):
     autocomplete_fields = ['patient']
     list_display = ['patient', 'proposed_treatment', 'priority_of_treatment', 'estimated_cost', 'alternative_treatment_options']
     list_select_related = ['patient']
+
+@admin.register(models.InformedConset)
+class InformedConsentAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['patient']
+    list_display = ['patient', 'consent_for_treatment', 'consent_for_x_rays']
