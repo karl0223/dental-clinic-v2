@@ -10,6 +10,9 @@ class Address(models.Model):
 
     def __str__(self) -> str:
         return f'{self.street} {self.city}'
+    
+    class Meta:
+        verbose_name_plural = 'Addresses'               # change the name in the admin page
 
 class Branch(models.Model):
     name = models.CharField(max_length=255)
@@ -17,6 +20,9 @@ class Branch(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+    class Meta:
+        verbose_name_plural = 'Branches'
 class Package(models.Model):
     PACKAGE_A = 'A'
     PACKAGE_B = 'B'
@@ -110,6 +116,9 @@ class DentalHistory(models.Model):
     last_dental_visit = models.DateField()
     reason_for_visit = models.TextField()
     previous_treatment = models.TextField()
+
+    class Meta:
+        verbose_name_plural = 'Dental Histories'
 
 class TreatmentPlan(models.Model):
     patient = models.OneToOneField(Patient, on_delete=models.CASCADE)
